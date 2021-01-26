@@ -28,6 +28,7 @@ let emailSchema = mongoose.Schema({
     period: { type: String }, //houry daily weekly
     when: { type: String },
     type: { type: String },
+    limit: {type: String},
     scheduled: { type:Boolean , default: false}
   },
 
