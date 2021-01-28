@@ -5,10 +5,13 @@ module.exports = {
 		let data = req.body;
 		
 		emailDbOperations.SaveEmailWithSchedule(data)
+			.then(()=>{
+				 res.json({
+					"message": "sucess"
+				})
+			})
 			.catch(err => console.log(err))
 
-		res.json({
-			"message": "sucess"
-		})
+	
 	}
 }
