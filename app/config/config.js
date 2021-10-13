@@ -4,7 +4,7 @@ let rootPath = path.normalize(path.join(__dirname, '/../../'))
 module.exports = {
 	dev: {
 		rootPath: rootPath,
-		db: 'mongodb://localhost:27017/email_definitions',
+		db: process.env.db || 'mongodb://localhost:27017/email_definitions',
 		port: process.env.PORT || 5544
 	},
 	dev_cloud: {

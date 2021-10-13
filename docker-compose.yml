@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mail-server:
+    container_name: mail-server
+    environment:
+      - db=mongodb://mongo:27017/email_definitions
+    image: latest123/mail-server
+    restart: always
+    build: .
+    ports:
+      - "5454:5454"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    # volumes:
+    #   - ./data:/data/db #will also make data folder in the proj
+    volumes:
+      - ~/data1/db:/data/db #to use the db we already have
+    ports:
+      - "27017:27017"
+#.docker compose up or docker compose up -d --build
+# docker compose down
