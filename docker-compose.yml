@@ -4,7 +4,7 @@ services:
     container_name: mail-server
     environment:
       - db=mongodb://mongo:27017/email_definitions
-    image: latest123/mail-server
+    image: mail-server
     restart: always
     build: .
     ports:
@@ -13,6 +13,11 @@ services:
       - mongo
     links:
       - mongo
+  mail-client:
+    container_name: mail-client
+    build: ../mail-client
+    ports:
+      - "4200:80"
   mongo:
     container_name: mongo
     image: mongo
@@ -22,5 +27,5 @@ services:
       - ~/data1/db:/data/db #to use the db we already have
     ports:
       - "27017:27017"
-#.docker compose up or docker compose up -d --build
+#.docker compose up or docker compose up -d --build #( to build if changes)
 # docker compose down
