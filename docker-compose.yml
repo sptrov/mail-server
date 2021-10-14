@@ -18,14 +18,35 @@ services:
     build: ../mail-client
     ports:
       - "4200:80"
+  mail-scheduler:
+    container_name: mail-scheduler
+    build: ../mail-scheduler
+    ports:
+      - "5555:5555"
+    environment:
+      - redis=redis
+      - db=mongodb://mongo:27017/email_definitions
+    links:
+      - redis
+      - mongo
+    depends_on:
+      - redis
+      - mongo
   mongo:
     container_name: mongo
+    restart: always
     image: mongo
     # volumes:
     #   - ./data:/data/db #will also make data folder in the proj
     volumes:
-      - ~/data1/db:/data/db #to use the db we already have
+      - ~/mongo/data:/data/db #to use the db we already have
     ports:
       - "27017:27017"
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
 #.docker compose up or docker compose up -d --build #( to build if changes)
 # docker compose down
